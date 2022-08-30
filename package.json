@@ -15,7 +15,9 @@
     "expo-status-bar": "~1.4.0",
     "react": "18.0.0",
     "react-native": "0.69.5",
-    "tailwindcss-react-native": "^1.7.10"
+    "react-native-progress": "^5.0.0",
+    "tailwindcss-react-native": "^1.7.10",
+    "react-native-svg": "12.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
