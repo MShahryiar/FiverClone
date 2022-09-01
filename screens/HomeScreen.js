@@ -2,6 +2,7 @@ import { View, Text,StatusBar, Image, ScrollView } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import avatar from "../assets/images/avatar.jpg";
 import * as Progress from 'react-native-progress';
+import { ArrowUpIcon } from "react-native-heroicons/outline"
 
 const HomeScreen = () => {
   const [initialRating, setInitialRating] = useState(0);
@@ -209,11 +210,12 @@ const HomeScreen = () => {
           </View>
           <View className='flex-row mt-3 items-center justify-between'>  
                   <Text className='text-sm'>Impressions</Text>
-                  <Text className="text-xs text-gray-600">1.6k</Text>
+                  <Text className="text-xs text-gray-600">1.6k <ArrowUpIcon color={'#1dbf73'} className="font-bold" size={15}/></Text>
           </View>
           <View className='flex-row mt-3 items-center justify-between'>  
                   <Text className='text-sm'>Clicks</Text>
-                  <Text className="text-xs text-gray-600">500</Text>
+                  <Text className="text-xs text-gray-600">500 <ArrowUpIcon color={'#1dbf73'} className="font-bold" size={15}/></Text>
+
           </View>
         </View>
       </View>
