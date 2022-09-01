@@ -1,15 +1,28 @@
-import { View, Text,StatusBar, Image, ScrollView } from 'react-native'
+import { View, Text,StatusBar, Image, ScrollView,RefreshControl } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import avatar from "../assets/images/avatar.jpg";
 import * as Progress from 'react-native-progress';
 import { ArrowUpIcon, ChevronDownIcon, QuestionMarkCircleIcon } from "react-native-heroicons/outline"
 
+const wait = (timeout) => {
+  return new Promise(resolve => setTimeout(resolve, timeout));
+}
+
 const HomeScreen = () => {
+  
   const [initialRating, setInitialRating] = useState(0);
   const [orderCompletion, setOrderCompletion] = useState(0);  
   const [responseRate, setResponseRate] = useState(0);
   const [onTimeDelivery, setOnTimeDelivery] = useState(0);
   const [details, setShowDetails] = useState(false);
+
+  const [refreshing, setRefreshing] = useState(false);
+  const onRefresh =(() => {
+    setRefreshing(true);
+    wait(1000).then(() => setRefreshing(false));
+  });
+
+
  useEffect(()=>{
     setTimeout(()=>{
      setInitialRating(0.9)
@@ -17,7 +30,7 @@ const HomeScreen = () => {
      setResponseRate(0.96)
      setOnTimeDelivery(1)
     },2000)
-  },[])
+  },[refreshing])
 
   return (
     <>
@@ -42,7 +55,15 @@ const HomeScreen = () => {
        
       </View>
     </View>
-    <ScrollView>
+    <ScrollView
+    refreshControl={
+      <RefreshControl
+        refreshing={refreshing}
+        onRefresh={onRefresh}
+      />
+}
+    >
+    
       <View className="bg-gray-800">
             <View className="flex-row justify-between px-4 my-5">
                 <Text className="text-white text-md font-bold">
