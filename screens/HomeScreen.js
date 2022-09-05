@@ -1,15 +1,17 @@
-import { View, Text,StatusBar, Image, ScrollView,RefreshControl } from 'react-native'
+import { View, Text,StatusBar, Image, ScrollView,RefreshControl, Button } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import avatar from "../assets/images/avatar.jpg";
 import * as Progress from 'react-native-progress';
 import { ArrowUpIcon, ChevronDownIcon, QuestionMarkCircleIcon } from "react-native-heroicons/outline"
+import RNRestart from 'react-native-restart';
+
 
 const wait = (timeout) => {
   return new Promise(resolve => setTimeout(resolve, timeout));
 }
 
 const HomeScreen = () => {
-  
+  const startReload = ()=> RNRestart.Restart();
   const [initialRating, setInitialRating] = useState(0);
   const [orderCompletion, setOrderCompletion] = useState(0);  
   const [responseRate, setResponseRate] = useState(0);
@@ -19,7 +21,12 @@ const HomeScreen = () => {
   const [refreshing, setRefreshing] = useState(false);
   const onRefresh =(() => {
     setRefreshing(true);
-    wait(1000).then(() => setRefreshing(false));
+    setInitialRating(0)
+     setOrderCompletion(0)
+     setResponseRate(0)
+     setOnTimeDelivery(0)
+     
+    wait(800).then(() => setRefreshing(false));
   });
 
 
@@ -29,14 +36,13 @@ const HomeScreen = () => {
      setOrderCompletion(0.7)
      setResponseRate(0.96)
      setOnTimeDelivery(1)
-    },2000)
+    },500)
   },[refreshing])
 
   return (
     <>
     <StatusBar backgroundColor={'white'} barStyle={'dark-content'}/>
     <View>
-
       <View className="flex-row items-center justify-between px-2">
       <Text className="font-bold">
           Username
@@ -121,7 +127,7 @@ const HomeScreen = () => {
                 </View>
                 </View>
             </View>
-            <View className="flex-row justify-between">
+            <View className="flex-row justify-between border-t">
               <Text className="text-lg font-bold text-white my-3 mx-2">Reach your next level</Text>
               <Text className="text-lg font-bold text-white my-3 mx-2" onPress={()=>setShowDetails(!details)}><ChevronDownIcon color="white" /></Text>
               
@@ -216,7 +222,7 @@ const HomeScreen = () => {
                   <Text className='text-sm font-bold'>0 unread messages</Text>
                   <Text className="text-xs text-gray-600">Your response time is great. Keep up the good work!</Text>
                 </View>
-                <View className="m-2 border rounded-full py-1 px-3">
+                <View className="m-2 border rounded-full py-2 px-5">
                   <Text className='text-sm'>0</Text>
                 </View>
           </View>

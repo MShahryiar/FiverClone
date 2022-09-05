@@ -4,7 +4,7 @@ import React from 'react'
 const UserScreen = () => {
   return (
     <View>
-      <Text>UserScreen</Text>
+      <Text>user name</Text>
     </View>
   )
 }
