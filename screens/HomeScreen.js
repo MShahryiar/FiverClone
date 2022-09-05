@@ -1,9 +1,12 @@
-import { View, Text,StatusBar, Image, ScrollView,RefreshControl, Button } from 'react-native'
+import { View, Text,StatusBar, Image, ScrollView,RefreshControl } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import avatar from "../assets/images/avatar.jpg";
 import * as Progress from 'react-native-progress';
-import { ArrowUpIcon, ChevronDownIcon, QuestionMarkCircleIcon } from "react-native-heroicons/outline"
+import {ChevronDownIcon, QuestionMarkCircleIcon } from "react-native-heroicons/outline"
 import RNRestart from 'react-native-restart';
+import Gigs from '../components/Gigs';
+import ToDos from '../components/ToDos';
+import Earnings from '../components/Earnings';
 
 
 const wait = (timeout) => {
@@ -42,7 +45,6 @@ const HomeScreen = () => {
   return (
     <>
     <StatusBar backgroundColor={'white'} barStyle={'dark-content'}/>
-    <View>
       <View className="flex-row items-center justify-between px-2">
       <Text className="font-bold">
           Username
@@ -56,7 +58,6 @@ const HomeScreen = () => {
         />
         <View className="absolute h-2 w-2 bg-green-400 bottom-2 rounded-full right-0">
 
-        </View>
         </View>
        
       </View>
@@ -106,22 +107,22 @@ const HomeScreen = () => {
             <View className="flex-row justify-between px-4 my-5">
                 <View className="flex-row space-x-5">
                 <View>
-                <Progress.Circle size={80} color="#1dbf73" progress={responseRate} unfilledColor="grey" textStyle={{color:'white', fontWeight:'bold', fontSize:20}} showsText={true} formatText={()=>responseRate*100 + " %"}/>
+                <Progress.Circle size={80} color="#1dbf73" progress={responseRate} borderColor="transparent" textStyle={{color:'white', fontWeight:'bold', fontSize:20}} showsText={true} formatText={()=>responseRate*100 + " %"}/>
                 <Text className="text-center text-white text-md font-bold mt-3">Response</Text>
                 <Text className="text-center  font-bold text-white text-md">Rate</Text>
                 </View>
                 <View>
-                <Progress.Circle size={80} color="#1dbf73" progress={orderCompletion} unfilledColor="grey" borderColor='grey' textStyle={{color:'white', fontWeight:'bold', fontSize:20}} showsText={true} formatText={()=>orderCompletion*100 + " %"}/>
+                <Progress.Circle size={80} color="#1dbf73" progress={orderCompletion} borderColor="transparent" textStyle={{color:'white', fontWeight:'bold', fontSize:20}} showsText={true} formatText={()=>orderCompletion*100 + " %"}/>
                 <Text className="text-center text-white text-md font-bold mt-3">Order</Text>
                 <Text className="text-center  font-bold text-white text-md">Completion</Text>
                 </View>
                 <View>
-                <Progress.Circle size={80} color="#1dbf73" progress={onTimeDelivery} unfilledColor="grey" textStyle={{color:'white', fontWeight:'bold', fontSize:20}} showsText={true} formatText={()=>onTimeDelivery*100+ " %"}/>
+                <Progress.Circle size={80} color="#1dbf73" progress={onTimeDelivery} borderColor="transparent"  textStyle={{color:'white', fontWeight:'bold', fontSize:20}} showsText={true} formatText={()=>onTimeDelivery*100+ " %"}/>
                 <Text className="text-center text-white text-md font-bold mt-3">On-Time</Text>
                 <Text className="text-center  font-bold text-white text-md">Delivery</Text>
                 </View>
                 <View>
-                <Progress.Circle size={80} color="#1dbf73" progress={initialRating} unfilledColor="grey" textStyle={{color:'white', fontWeight:'bold', fontSize:20}}  showsText={true} formatText={()=>initialRating/2*10}/>
+                <Progress.Circle size={80} color="#1dbf73" progress={initialRating} borderColor="transparent" textStyle={{color:'white', fontWeight:'bold', fontSize:20}}  showsText={true} formatText={()=>initialRating/2*10}/>
                 <Text className="text-center text-white text-md font-bold mt-3">Positive</Text>
                 <Text className="text-center  font-bold text-white text-md">Rating</Text>
                 </View>
@@ -174,78 +175,9 @@ const HomeScreen = () => {
             </>
             )}
       </View>
-      <View>
-        <View className="flex-row mx-3 my-3 items-center justify-between">
-                <Text className="text-lg font-bold">Earnings</Text>
-                <Text className="text-[#1dbf73]">Details</Text>
-        </View>
-        <View className="w-100 mx-3 bg-white rounded-md ">
-          <View className='flex-row p-1 items-center'>          
-                <View className="m-2 w-40">
-                  <Text className=''>Personal Balance</Text>
-                  <Text className="font-bold text-lg text-[#1dbf73]">$650</Text>
-                </View>
-                <View className="">
-                  <Text className=''>Earning in August</Text>
-                  <Text className="font-bold text-lg text-[#1dbf73]">$400</Text>
-                </View>
-          </View>
-          <View className='flex-row p-1 items-center'>          
-                <View className="m-2 w-40">
-                  <Text className=''>Avg. Selling Price</Text>
-                  <Text className="font-bold text-lg text-[#1dbf73]">$55</Text>
-                </View>
-                <View className="">
-                  <Text className=''>Active Orders</Text>
-                  <Text className="font-bold text-lg text-[#1dbf73]">2 ($75)</Text>
-                </View>
-          </View>
-          <View className='flex-row p-1 items-center' >          
-                <View className="m-2  w-40">
-                  <Text className=''>Pending Clearance</Text>
-                  <Text className="font-bold text-lg text-[#1dbf73]">$0</Text>
-                </View>
-                <View className="">
-                  <Text className=''>Cancelled Orders</Text>
-                  <Text className="font-bold text-lg text-[#1dbf73]">1 ($45)</Text>
-                </View>
-          </View>
-        </View>
-      </View>
-      <View>
-        <View className="mx-3 my-3">
-                <Text className="text-lg font-bold">To-Dos</Text>
-        </View>
-        <View className="w-100 mx-3 bg-white rounded-md mb-3 p-2 ">
-          <View className='flex-row items-center justify-between'>          
-                <View className="m-2">
-                  <Text className='text-sm font-bold'>0 unread messages</Text>
-                  <Text className="text-xs text-gray-600">Your response time is great. Keep up the good work!</Text>
-                </View>
-                <View className="m-2 border rounded-full py-2 px-5">
-                  <Text className='text-sm'>0</Text>
-                </View>
-          </View>
-        </View>
-        <View className="mx-3 my-3">
-                <Text className="text-lg font-bold">My Gigs</Text>
-        </View>
-        <View className="w-100 mx-3 bg-white rounded-md mb-3 p-2 ">
-        <View className='flex-row items-center justify-between'>  
-                  <Text className='text-sm font-bold'>Statistics</Text>
-                  <Text className="text-xs text-gray-600">Last 7 Days</Text>
-          </View>
-          <View className='flex-row mt-3 items-center justify-between'>  
-                  <Text className='text-sm'>Impressions</Text>
-                  <Text className="text-xs text-gray-600 font-bold">1.6k <ArrowUpIcon color={'#1dbf73'} className="font-bold" size={15}/></Text>
-          </View>
-          <View className='flex-row mt-3 items-center justify-between'>  
-                  <Text className='text-sm'>Clicks</Text>
-                  <Text className="text-xs text-gray-600 font-bold">500 <ArrowUpIcon color={'#1dbf73'} size={15}/></Text>
-
-          </View>
-        </View>
-      </View>
+        <Earnings/>
+        <ToDos/>
+        <Gigs/>
       
       </ScrollView>
     </>
